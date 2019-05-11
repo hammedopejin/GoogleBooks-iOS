@@ -40,7 +40,7 @@ class BooksViewController: UIViewController {
             controller.searchBar.delegate = self
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
-            
+            controller.searchBar.tintColor = .black
             booksTableview.tableHeaderView = controller.searchBar
             
             return controller
@@ -50,8 +50,8 @@ class BooksViewController: UIViewController {
     
     func getBooks(searchTerm: String) {
         let endpoint = "https://www.googleapis.com/books/v1/volumes?q=\(searchTerm)"
-        
-        guard let url = URL(string: endpoint) else {
+        let escapedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        guard let url = URL(string: escapedEndpoint!) else {
             return
         }
         
@@ -120,6 +120,14 @@ extension BooksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        vc.book = self.books[indexPath.row]
+        self.resultSearchController.dismiss(animated: true, completion: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
