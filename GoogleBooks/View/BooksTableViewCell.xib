@@ -24,25 +24,26 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Hgk-6u-eJB" secondAttribute="height" multiplier="10:9" id="9dV-yU-R63"/>
                             <constraint firstAttribute="height" constant="108" id="axI-f0-GaK"/>
+                            <constraint firstAttribute="width" secondItem="Hgk-6u-eJB" secondAttribute="height" multiplier="10:9" id="vYo-BM-udM"/>
                         </constraints>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="wPM-7h-ISA">
-                        <rect key="frame" x="136" y="8" width="257" height="95"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wPM-7h-ISA">
+                        <rect key="frame" x="136" y="25" width="258" height="69"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cic-1X-xBv">
-                                <rect key="frame" x="0.0" y="0.0" width="257" height="21.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="258" height="21.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1y-jd-WAW">
-                                <rect key="frame" x="0.0" y="42.5" width="257" height="17"/>
+                                <rect key="frame" x="0.0" y="29.5" width="258" height="17"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnS-Wb-rhQ">
-                                <rect key="frame" x="0.0" y="80.5" width="257" height="14.5"/>
+                                <rect key="frame" x="0.0" y="54.5" width="258" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -51,14 +52,14 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="wPM-7h-ISA" secondAttribute="trailing" constant="8" id="5nR-De-Xsv"/>
-                    <constraint firstItem="wPM-7h-ISA" firstAttribute="leading" secondItem="Hgk-6u-eJB" secondAttribute="trailing" constant="8" id="Gj9-Qe-lMh"/>
+                    <constraint firstAttribute="bottom" secondItem="wPM-7h-ISA" secondAttribute="bottom" constant="25.5" id="A7R-Dk-jJI"/>
                     <constraint firstAttribute="trailing" secondItem="Hgk-6u-eJB" secondAttribute="trailing" constant="273" id="UpL-ep-5WR"/>
                     <constraint firstItem="Hgk-6u-eJB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="bjD-l2-CjN"/>
+                    <constraint firstAttribute="trailing" secondItem="wPM-7h-ISA" secondAttribute="trailing" constant="7" id="gv5-7t-dnI"/>
                     <constraint firstItem="Hgk-6u-eJB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ja0-Uf-fgN"/>
-                    <constraint firstItem="wPM-7h-ISA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="kaX-X8-ivE"/>
+                    <constraint firstItem="wPM-7h-ISA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="szS-EN-vB0"/>
+                    <constraint firstItem="wPM-7h-ISA" firstAttribute="leading" secondItem="Hgk-6u-eJB" secondAttribute="trailing" constant="8" id="v3s-pc-zbS"/>
                     <constraint firstAttribute="bottom" secondItem="Hgk-6u-eJB" secondAttribute="bottom" constant="8" id="xmb-Sl-2lB"/>
-                    <constraint firstAttribute="bottom" secondItem="wPM-7h-ISA" secondAttribute="bottom" constant="8" id="zUr-ed-b3g"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -20,6 +20,7 @@
 		0FD596622287028000F6902A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD596612287028000F6902A /* Book.swift */; };
 		0FD596642287067400F6902A /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD596632287067400F6902A /* DownloadService.swift */; };
 		0FD59666228789E800F6902A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD59665228789E800F6902A /* DetailViewController.swift */; };
+		0FD596682287C8E300F6902A /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD596672287C8E300F6902A /* FavoritesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		0FD596612287028000F6902A /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		0FD596632287067400F6902A /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		0FD59665228789E800F6902A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0FD596672287C8E300F6902A /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 			children = (
 				0FD5962722866FE000F6902A /* BooksViewController.swift */,
 				0FD59665228789E800F6902A /* DetailViewController.swift */,
+				0FD596672287C8E300F6902A /* FavoritesViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			files = (
 				0FD5965E22867AD900F6902A /* BooksTableViewCell.swift in Sources */,
 				0FD5962822866FE000F6902A /* BooksViewController.swift in Sources */,
+				0FD596682287C8E300F6902A /* FavoritesViewController.swift in Sources */,
 				0FD5962E22866FE000F6902A /* GoogleBooks.xcdatamodeld in Sources */,
 				0FD596622287028000F6902A /* Book.swift in Sources */,
 				0FD5962622866FE000F6902A /* AppDelegate.swift in Sources */,
