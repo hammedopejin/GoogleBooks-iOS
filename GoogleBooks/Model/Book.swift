@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum BookErrors: Error {
     case missing(String)
@@ -18,7 +19,7 @@ class Book {
     let authors: [String]
     let publisher: String
     let publishedDate: String
-    let description: String
+    let bookDescription: String
     let imageUrl: String
     
     init?(json: [String: Any]) throws {
@@ -61,7 +62,7 @@ class Book {
         if let desc = bookInfo["description"] as? String {
             description = desc
         }
-        self.description = description
+        self.bookDescription = description
         
         var imageUrl = ""
         if let imgUrl = imageLinks["thumbnail"] {
@@ -69,5 +70,19 @@ class Book {
         }
         self.imageUrl = imageUrl
         
+    }
+    
+    init?(entity: NSManagedObject) {
+        guard let id = entity.value(forKey: Entity.Keys.Book.id.rawValue) as? String, let title = entity.value(forKey: Entity.Keys.Book.title.rawValue) as? String, let authors = entity.value(forKey: Entity.Keys.Book.authors.rawValue) as? [String], let publisher = entity.value(forKey: Entity.Keys.Book.publisher.rawValue) as? String, let publishedDate = entity.value(forKey: Entity.Keys.Book.publishedDate.rawValue) as? String, let bookDescription = entity.value(forKey: Entity.Keys.Book.bookDescription.rawValue) as? String, let imageUrl = entity.value(forKey: Entity.Keys.Book.imageUrl.rawValue) as? String else {
+            return nil
+        }
+        
+        self.id = id
+        self.title = title
+        self.authors = authors
+        self.publisher = publisher
+        self.publishedDate = publishedDate
+        self.bookDescription = bookDescription
+        self.imageUrl = imageUrl
     }
 }

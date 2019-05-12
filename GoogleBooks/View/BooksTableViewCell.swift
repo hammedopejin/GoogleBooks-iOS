@@ -25,7 +25,7 @@ class BooksTableViewCell: UITableViewCell {
         
         DLService.downloadImage(url: url) { [unowned self] image in
             
-            self.bookImage.image = image != nil ? image : #imageLiteral(resourceName: "gift-boxes-icon")
+            self.bookImage.image = image != nil ? image : #imageLiteral(resourceName: "book")
             
         }
         

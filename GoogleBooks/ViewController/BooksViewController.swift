@@ -23,11 +23,10 @@ class BooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTableview ()
+        setupTableView ()
     }
-
     
-    func setUpTableview() {
+    func setupTableView() {
         
         booksTableview.delegate = self
         booksTableview.dataSource = self
@@ -41,12 +40,14 @@ class BooksViewController: UIViewController {
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
             controller.searchBar.tintColor = .black
+            controller.searchBar.placeholder = "Search Google Books"
             booksTableview.tableHeaderView = controller.searchBar
             
             return controller
         })()
+
+        
     }
-    
     
     func getBooks(searchTerm: String) {
         let endpoint = "https://www.googleapis.com/books/v1/volumes?q=\(searchTerm)"
