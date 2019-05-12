@@ -10,7 +10,7 @@ import UIKit
 
 typealias bookHandler = ([Book]?) -> Void
 typealias imageHandler = (UIImage?) -> Void
-let DLService = DownloadService.shared
+let downloadService = DownloadService.shared
 
 final class DownloadService {
     
@@ -57,6 +57,57 @@ final class DownloadService {
             }
         }.resume()
         
+    }
+    
+    func getBooks(searchTerm: String, vc: UIViewController, completion: @escaping bookHandler) {
+        let endpoint = "https://www.googleapis.com/books/v1/volumes?q=\(searchTerm)"
+        let escapedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        guard let url = URL(string: escapedEndpoint!) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, err) in
+            if let error = err {
+                print(error)
+            }
+            
+            if let data = data {
+                do {
+                    if let jsonObjectCount = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let bookCount = jsonObjectCount["totalItems"] as? Int {
+                        if bookCount == 0 {
+                            print("No Results")
+                            DispatchQueue.main.async {
+                                vc.showAlert(title: "No Result!", message: "No book match the search criteria you entered, please try another search term")
+                                completion(nil)
+                            }
+                        }
+                    }
+                    guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let bookArray = jsonObject["items"] as? [[String: Any]] else {
+                        print("Bad Json Format Error!")
+                        return
+                    }
+                    
+                    var books = [Book]()
+                    for book in bookArray {
+                        if let book = try Book(json: book) {
+                            books.append(book)
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        print("Books count: \(books.count)")
+                        if !books.isEmpty {
+                            completion(books)
+                        }
+                    }
+                    
+                } catch {
+                    
+                    print(data.debugDescription)
+                    print("Couldn't Serialize Object: \(error.localizedDescription)")
+                }
+            }
+            }.resume()
     }
   
 }

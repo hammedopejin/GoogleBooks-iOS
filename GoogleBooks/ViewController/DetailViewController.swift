@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
         bookPublisher.text = book.publisher
         
         let url = book.imageUrl
-        DLService.downloadImage(url: url) {[unowned self] image in
+        downloadService.downloadImage(url: url) {[unowned self] image in
             let img = image != nil ? image : #imageLiteral(resourceName: "book")
             
             DispatchQueue.main.async {

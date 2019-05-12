@@ -35,7 +35,6 @@ class BooksViewController: UIViewController {
         
         resultSearchController = ({
             let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
             controller.searchBar.delegate = self
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
@@ -46,54 +45,6 @@ class BooksViewController: UIViewController {
             return controller
         })()
 
-        
-    }
-    
-    func getBooks(searchTerm: String) {
-        let endpoint = "https://www.googleapis.com/books/v1/volumes?q=\(searchTerm)"
-        let escapedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        guard let url = URL(string: escapedEndpoint!) else {
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, _, err) in
-            if let error = err {
-                    print(error)
-            }
-            
-            if let data = data {
-                do {
-                    if let jsonObjectCount = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let bookCount = jsonObjectCount["totalItems"] as? Int {
-                        if bookCount == 0 {
-                            print("No Results")
-                        }
-                    }
-                    guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let bookArray = jsonObject["items"] as? [[String: Any]] else {
-                            print("Bad Json Format Error!")
-                        return
-                    }
-                    
-                    var books = [Book]()
-                    for book in bookArray {
-                        if let book = try Book(json: book) {
-                            books.append(book)
-                        }
-                    }
-                    
-                    DispatchQueue.main.async {
-                        print("Books count: \(books.count)")
-                        if !books.isEmpty {
-                            self.books = books
-                        }
-                    }
-                    
-                } catch {
-                       
-                        print(data.debugDescription)
-                        print("Couldn't Serialize Object: \(error.localizedDescription)")
-                    }
-                }
-            }.resume()
         
     }
 
@@ -132,17 +83,18 @@ extension BooksViewController: UITableViewDelegate {
     }
 }
 
-extension BooksViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-//        if let searchTerm = searchController.searchBar.text {
-//            getBooks(searchTerm: searchTerm)
-//        }
-    }
+extension BooksViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchTerm = searchBar.text {
-            getBooks(searchTerm: searchTerm)
+            //getBooks(searchTerm: searchTerm)
+            
+            downloadService.getBooks(searchTerm: searchTerm, vc: self) { [unowned self] bks in
+                
+                if let books = bks {
+                    self.books = books
+                }
+            }
         }
     }
 }

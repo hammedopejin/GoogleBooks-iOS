@@ -23,7 +23,7 @@ class BooksTableViewCell: UITableViewCell {
         
         let url = book.imageUrl
         
-        DLService.downloadImage(url: url) { [unowned self] image in
+        downloadService.downloadImage(url: url) { [unowned self] image in
             
             self.bookImage.image = image != nil ? image : #imageLiteral(resourceName: "book")
             
