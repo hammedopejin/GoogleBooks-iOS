@@ -23,7 +23,6 @@ class GoogleBooksTests: XCTestCase {
         dataService = DataService.sharedInstance
         let bookVC = BooksViewController()
         books = bookVC.books
-        favorites = dataService.getBooks()
     }
 
     override func tearDown() {
@@ -44,17 +43,17 @@ class GoogleBooksTests: XCTestCase {
         //var books = [Book]()
         let promise = expectation(description: "waiting for books...")
         
-        downloadService.getBooks(searchTerm: "Love", vc: UIViewController()) { bks in
-            
-            if let resultbooks = bks {
-                self.books = resultbooks
+            downloadService.getBooks(searchTerm: "Love", vc: UIViewController()) {[unowned self] bks in
+                
+                if let resultbooks = bks {
+                    self.books = resultbooks
+                }
+                
+                promise.fulfill()
+                
             }
-            
-            promise.fulfill()
-            
-        }
         
-        waitForExpectations(timeout: 4, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
         
         XCTAssertTrue(books.count > 0)
         
@@ -65,11 +64,12 @@ class GoogleBooksTests: XCTestCase {
         //var books = [Book]()
         let promise = expectation(description: "waiting for books...")
         
-        downloadService.getBooks(searchTerm: "Love", vc: UIViewController()) { bks in
+        downloadService.getBooks(searchTerm: "Love", vc: UIViewController()) {[unowned self] bks in
             
             if let resultbooks = bks {
                 self.books = resultbooks
                 self.dataService.saveBook(self.books[0])
+                self.favorites = self.dataService.getBooks()
             }
             
             promise.fulfill()
