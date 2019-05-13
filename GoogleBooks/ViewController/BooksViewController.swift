@@ -86,8 +86,8 @@ extension BooksViewController: UITableViewDelegate {
 extension BooksViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
         if let searchTerm = searchBar.text {
-            //getBooks(searchTerm: searchTerm)
             
             downloadService.getBooks(searchTerm: searchTerm, vc: self) { [unowned self] bks in
                 

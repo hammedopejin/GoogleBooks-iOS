@@ -55,7 +55,7 @@ extension FavoritesViewController: UITableViewDataSource {
         
         return cell
     }
-    
+
 }
 
 extension FavoritesViewController: UITableViewDelegate {
@@ -69,5 +69,12 @@ extension FavoritesViewController: UITableViewDelegate {
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         vc.book = books[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let book = books[indexPath.row]
+        books.remove(at: indexPath.row)
+        dataService.deleteBook(book)
+        tableView.reloadData()
     }
 }
