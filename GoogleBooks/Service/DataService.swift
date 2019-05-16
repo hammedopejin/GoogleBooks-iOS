@@ -77,8 +77,8 @@ final class DataService {
         let fetchRequest = NSFetchRequest<CoreBook>(entityName: Entity.Keys.Book.CoreBook.rawValue)
         fetchRequest.predicate = NSPredicate(format: "id = %@", book.id)
         do {
-            let deletedata = try context.fetch(fetchRequest)
-            let toDeleteBook = deletedata[0] as NSManagedObject
+            let bookData = try context.fetch(fetchRequest)
+            let toDeleteBook = bookData[0] as NSManagedObject
             context.delete(toDeleteBook)
             saveContext()
             print("Deleted Book: \(book.title) from Favorite")

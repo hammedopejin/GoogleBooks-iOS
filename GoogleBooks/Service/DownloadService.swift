@@ -63,12 +63,15 @@ final class DownloadService {
         let endpoint = "https://www.googleapis.com/books/v1/volumes?q=\(searchTerm)"
         let escapedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         guard let url = URL(string: escapedEndpoint!) else {
+            completion(nil)
             return
         }
         
         URLSession.shared.dataTask(with: url) { (data, _, err) in
             if let error = err {
                 print(error)
+                completion(nil)
+                return
             }
             
             if let data = data {
