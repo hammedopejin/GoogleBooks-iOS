@@ -11,14 +11,13 @@ import UIKit
 class BooksViewController: UIViewController {
     @IBOutlet weak var booksTableview: UITableView!
     
-    var resultSearchController = UISearchController()
+    var resultSearchController = UISearchController(searchResultsController: nil)
     
     var books = [Book]() {
         didSet{
             booksTableview.reloadData()
         }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,17 +33,18 @@ class BooksViewController: UIViewController {
         booksTableview.tableFooterView = UIView(frame: .zero)
         
         resultSearchController = ({
+            
             let controller = UISearchController(searchResultsController: nil)
             controller.searchBar.delegate = self
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
             controller.searchBar.tintColor = .black
             controller.searchBar.placeholder = "Search Google Books"
-            booksTableview.tableHeaderView = controller.searchBar
             
             return controller
         })()
-
+    
+        booksTableview.tableHeaderView = resultSearchController.searchBar
         
     }
 
@@ -59,12 +59,10 @@ extension BooksViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: BooksTableViewCell.identifier, for: indexPath) as! BooksTableViewCell
         
         let book = books[indexPath.row]
-        
         cell.configureCell(book: book)
         
         return cell
     }
-    
     
 }
 
@@ -78,7 +76,7 @@ extension BooksViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
         vc.book = self.books[indexPath.row]
-        self.resultSearchController.dismiss(animated: true, completion: nil)
+        resultSearchController.dismiss(animated: true, completion: nil)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -86,7 +84,7 @@ extension BooksViewController: UITableViewDelegate {
 extension BooksViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        resultSearchController.dismiss(animated: true, completion: nil)
         if let searchTerm = searchBar.text {
             
             downloadService.getBooks(searchTerm: searchTerm, vc: self) { [unowned self] bks in
@@ -97,6 +95,14 @@ extension BooksViewController: UISearchBarDelegate {
             }
         }
     }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        tabBarController?.tabBar.isHidden = true
+        return true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        tabBarController?.tabBar.isHidden = false
+    }
+
 }
-
-
